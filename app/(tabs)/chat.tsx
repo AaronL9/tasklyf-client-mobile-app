@@ -6,9 +6,10 @@ export default function Chat() {
     <View
       style={{
         flex: 1,
+        backgroundColor: "white",
       }}
     >
-      <ChatCardList/>
+      <ChatCardList />
     </View>
   );
 }

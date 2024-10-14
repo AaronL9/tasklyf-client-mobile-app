@@ -1,7 +1,12 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-import React from 'react';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import React from "react";
 
-type Props = {profileUrl: string, name: string, time: string, currentMessages: string}
+type Props = {
+  profileUrl: string;
+  name: string;
+  time: string;
+  currentMessages: string;
+};
 
 export default function ChatCard(props: Props) {
   return (
@@ -27,14 +32,13 @@ export default function ChatCard(props: Props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5', // Light background
     paddingVertical: 10,
   },
   chatCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     padding: 15,
-    backgroundColor: '#fff', // White background for chat card
+    backgroundColor: "#fff", // White background for chat card
     borderRadius: 10,
     marginHorizontal: 10,
   },
@@ -46,11 +50,11 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   nameAndTime: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginBottom: 5,
   },
   name: {
@@ -58,15 +62,15 @@ const styles = StyleSheet.create({
   },
   time: {
     fontSize: 14,
-    color: '#888',
+    color: "#888",
   },
   message: {
     fontSize: 14,
-    color: '#666',
+    color: "#666",
   },
   divider: {
     height: 1,
-    backgroundColor: '#E0E0E0',
+    backgroundColor: "#E0E0E0",
     marginHorizontal: 25,
     marginTop: 10,
   },

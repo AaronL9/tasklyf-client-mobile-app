@@ -19,12 +19,12 @@ export default function TabLayout() {
         tabBarItemStyle: { paddingVertical: 10 },
         tabBarLabelStyle: { fontFamily: "Poppins-Medium" },
         headerStyle: { height: 100 },
-        headerShadowVisible: false,
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
+          headerShadowVisible: false,
           title: "",
           tabBarLabel: "Home",
           tabBarIcon: ({ color }) => <Home color={color} />,
@@ -41,8 +41,9 @@ export default function TabLayout() {
       <Tabs.Screen
         name="chat"
         options={{
-          title: "Chat",
+          title: "Inbox",
           tabBarIcon: ({ color }) => <ChatRound color={color} />,
+          headerTitleStyle: { marginLeft: 20, fontFamily: "Archivo Black" },
         }}
       />
 
