@@ -1,27 +1,27 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import Handshake from "../svg/HandShake";
 import GreaterThan from "../svg/GreaterThan";
+import ProfileIcons from "../svg/ProfileIcons";
 
-type Props = {
-  icon: string;
+type IconProps = React.ComponentProps<typeof ProfileIcons>;
+
+type Props = IconProps & {
   buttonName: string;
-  rightIcon: string;
 };
 
-export default function ProfileButton() {
+export default function ProfileButton(props: Props) {
   return (
     <View
       style={{
         flexDirection: "row",
         width: "100%",
         alignItems: "center",
-        gap: 8,
+        gap: 10,
         marginTop: 12,
       }}
     >
-      <Handshake />
-      <Text style={{ fontFamily: "Poppins-Medium" }}>Register as Partner</Text>
+      <ProfileIcons icon={props.icon} />
+      <Text style={{ fontFamily: "Poppins-Medium" }}>{props.buttonName}</Text>
       <View style={{ marginLeft: "auto" }}>
         <GreaterThan />
       </View>

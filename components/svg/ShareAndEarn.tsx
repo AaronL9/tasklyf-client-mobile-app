@@ -1,9 +1,9 @@
 // Share.js
 import Svg, { G, Path, Rect, ClipPath, Defs } from "react-native-svg";
 
-export default function Share() {
+export default function ShareAndEarn() {
   return (
-    <Svg width="64" height="64" viewBox="-2.4 -2.4 28.8 28.8" fill="none">
+    <Svg width="27.5" height="27.5" viewBox="-2.4 -2.4 28.8 28.8" fill="none">
       <G clipPath="url(#clip0)">
         <Rect
           x="-2.4"
