@@ -10,7 +10,7 @@ export default function ProfileHeader() {
       <Text style={{ fontFamily: "Poppins-Medium" }}>
         patrickantonio@gmail.com
       </Text>
-      <PrimaryButton />
+      <PrimaryButton buttonLabel="Edit Profile" />
     </View>
   );
 }
