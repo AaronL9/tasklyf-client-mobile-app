@@ -2,7 +2,7 @@
 import React from "react";
 import Svg, { G, Path, Rect, Defs, ClipPath } from "react-native-svg";
 
-export default function Logout() {
+export default function ProfileLogout() {
   return (
     <Svg width="64" height="64" viewBox="-2.4 -2.4 28.8 28.8" fill="none">
       <G clipPath="url(#clip0)">

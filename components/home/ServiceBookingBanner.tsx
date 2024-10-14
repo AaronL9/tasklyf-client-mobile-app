@@ -15,7 +15,7 @@ export default function ServiceBookingBanner() {
           <Text style={styles.promoHeaderText}>Book Services</Text>
           <Text style={styles.promoSubText}>in your area with ease</Text>
           <View style={{ marginTop: 8 }}>
-            <PrimaryButton />
+            <PrimaryButton buttonLabel="Book Now"/>
           </View>
         </View>
       </View>
