@@ -1,15 +1,42 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
-import Mark from "../icons/Mark";
+import React, { useEffect, useState } from "react";
+import Mark from "../svg/Mark";
 import { Colors } from "@/constants/Colors";
+import { getLocation } from "@/utils/getLocation";
 
 export default function LocationDisplay() {
+  const [locationData, setLocationData] = useState<any>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const data = await getLocation();
+        setLocationData(data);
+        console.log("data from display: ", data);
+      } catch (err) {
+        setError("Failed to fetch location");
+        console.log(err);
+      }
+    })();
+  }, []);
+
   return (
     <View style={styles.container}>
       <Mark color={Colors["dark"]} />
       <View>
-        <Text style={styles.label}>Current Location</Text>
-        <Text style={styles.locationName}>Dagupan City</Text>
+        {error ? (
+          <Text>{error}</Text>
+        ) : locationData ? (
+          <>
+            <Text style={styles.label}>{locationData.address.road}</Text>
+            <Text style={styles.locationName}>
+              {locationData.address.region}
+            </Text>
+          </>
+        ) : (
+          <Text>Loading location...</Text>
+        )}
       </View>
     </View>
   );
@@ -23,9 +50,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   label: {
-    fontSize: 13,
+    fontSize: 15,
     fontFamily: "Poppins-Medium",
-    color: Colors["primary-grey"],
   },
-  locationName: { fontSize: 14, fontFamily: "Poppins-Medium" },
+  locationName: {
+    fontSize: 10,
+    fontFamily: "Poppins-Medium",
+  },
 });

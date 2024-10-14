@@ -25,6 +25,7 @@ export default function ServiceBookingBanner() {
           flexDirection: "row",
           columnGap: 8,
           justifyContent: "center",
+          alignItems: "center",
           marginTop: 8,
         }}
       >
@@ -43,7 +44,7 @@ const styles = StyleSheet.create({
     width: "100%",
     position: "relative",
     alignItems: "center",
-    marginTop: 35,
+    marginTop: 25,
     overflow: "hidden",
     borderRadius: 10,
     height: 153,

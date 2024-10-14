@@ -7,7 +7,10 @@ export const Colors = {
   blue: "#007AFF",
   dark: "#1F1F1F",
   yellow: "#FBCE50",
+  green: "#34A853",
+  white: "#1F1F1F",
   "primary-grey": "#808083",
   "seoncdary-grey": "#BFBFBF",
   "tertiary-grey": "#F1F1F1",
+  ratings: "#FBBC04",
 };

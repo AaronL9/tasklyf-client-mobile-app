@@ -1,6 +1,6 @@
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import React from "react";
-import MagnifyingGlass from "./icons/MagnifyingGlass";
+import MagnifyingGlass from "./svg/MagnifyingGlass";
 import { Colors } from "@/constants/Colors";
 
 export default function SearchBar() {
@@ -14,12 +14,13 @@ export default function SearchBar() {
 
 const styles = StyleSheet.create({
   searchBarContainer: {
+    width: "100%",
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: Colors["tertiary-grey"],
     borderRadius: 10,
     paddingHorizontal: 10,
-    marginVertical: 10,
+    marginTop: 10,
     columnGap: 15,
   },
   searchBar: {

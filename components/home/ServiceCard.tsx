@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import ServiceIcons from "../icons/ServiceIcons";
+import ServiceIcons from "../svg/ServiceIcons";
 
 // Extract AirConditioner props
 type ServiceIconsProps = React.ComponentProps<typeof ServiceIcons>;

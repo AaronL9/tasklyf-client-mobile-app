@@ -13,13 +13,9 @@ export default function ServiceCardList() {
   return (
     <FlatList
       horizontal
-      showsHorizontalScrollIndicator
+      showsHorizontalScrollIndicator={false}
       data={services}
-      contentContainerStyle={{
-        flexDirection: "row",
-        justifyContent: "space-between",
-        columnGap: 12,
-      }}
+      contentContainerStyle={styles.contentContaier}
       renderItem={({ item, index }) => (
         <ServiceCard key={index} icon={item.icon} label={item.label} />
       )}
@@ -27,4 +23,11 @@ export default function ServiceCardList() {
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  contentContaier: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    columnGap: 12,
+    paddingHorizontal: 20,
+  },
+});
