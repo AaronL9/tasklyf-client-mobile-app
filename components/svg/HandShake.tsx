@@ -10,15 +10,6 @@ export default function Handshake() {
       fill="#000000"
     >
       <G id="SVGRepo_bgCarrier" strokeWidth="0">
-        <Rect
-          x="-102.4"
-          y="-102.4"
-          width="1228.80"
-          height="1228.80"
-          rx="184.32"
-          fill="#ebeaea"
-          strokeWidth="0"
-        />
       </G>
 
       <G

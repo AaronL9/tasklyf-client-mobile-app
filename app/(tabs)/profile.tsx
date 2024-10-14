@@ -15,6 +15,10 @@ export default function Profile() {
         <ProfileButton buttonName="My Booking" icon="calendar" />
         <ProfileButton buttonName="Help Center" icon="help" />
         <ProfileButton buttonName="Share & Earn" icon="share-and-earn" />
+        <ProfileButton buttonName="Rate Us" icon="ProfileStars" />
+        <ProfileButton buttonName="FAQ's" icon="QuestionAndAnswer" />
+        <ProfileButton buttonName="Privacy Policy" icon="ProfilePrivacy" />
+        <ProfileButton buttonName="Logout" icon="ProfileLogout" />
       </View>
     </View>
   );
