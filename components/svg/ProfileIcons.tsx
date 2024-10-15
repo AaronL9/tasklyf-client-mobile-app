@@ -1,4 +1,4 @@
-import Calendar from "./Calendar";
+import Calendar from "./CalendarSuccess";
 import CalendarSuccess from "./CalendarSuccess";
 import Handshake from "./HandShake";
 import Help from "./Help";
