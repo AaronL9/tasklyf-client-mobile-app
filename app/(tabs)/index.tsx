@@ -5,6 +5,7 @@ import PopularServiceCardList from "@/components/home/PopularServiceCardList";
 import ServiceBookingBanner from "@/components/home/ServiceBookingBanner";
 import ServiceCardList from "@/components/home/ServiceCardList";
 import TopProviderCardList from "@/components/home/TopProviderCardList";
+import { Link } from "expo-router";
 
 const sections = [
   { id: "search-bar", type: "searchBar" },
@@ -27,7 +28,7 @@ export default function Index() {
       case "searchBar":
         return (
           <View style={styles.sectionContainer}>
-            <SearchBar />
+            <SearchBar onChangeText={() => {}} disabled placeholder="Search..." />
             <ServiceBookingBanner />
           </View>
         );
@@ -77,6 +78,7 @@ const styles = StyleSheet.create({
     // fix: possible UI bug
     width: 400,
     paddingHorizontal: 20,
+    marginTop: 15,
   },
   listContainer: { width: "100%", marginTop: 24 },
   headerText: {

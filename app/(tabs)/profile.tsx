@@ -5,12 +5,10 @@ import ProfileButton from "@/components/Profile/ProfileButton";
 
 export default function Profile() {
   return (
-    <View style={{ alignItems: "center", paddingHorizontal: 20 }}>
+    <View style={styles.profileContainer}>
       <ProfileHeader />
-      <View style={{ alignItems: "flex-start", width: "100%", gap: 10 }}>
-        <Text style={{ fontFamily: "Poppins-Medium", fontSize: 16 }}>
-          Profile
-        </Text>
+      <View style={styles.profileMenu}>
+        <Text style={{ fontFamily: "Poppins-SemiBold", fontSize: 16, width: "100%" }}>Profile</Text>
         <ProfileButton buttonName="Register as Partner" icon="handshake" />
         <ProfileButton buttonName="My Booking" icon="calendar" />
         <ProfileButton buttonName="Help Center" icon="help" />
@@ -24,4 +22,17 @@ export default function Profile() {
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  profileContainer: {
+    alignItems: "center",
+    paddingHorizontal: 20,
+    backgroundColor: "white",
+    flex: 1,
+  },
+  profileMenu: {
+    alignItems: "flex-start",
+    width: "100%",
+    gap: 10,
+    marginTop: 40,
+  },
+});
