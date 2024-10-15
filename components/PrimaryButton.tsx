@@ -1,10 +1,13 @@
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
-import React from "react";
 
-export default function PrimaryButton() {
+type Props = {
+  buttonLabel: string;
+};
+
+export default function PrimaryButton({ buttonLabel }: Props) {
   return (
     <TouchableOpacity style={styles.primaryButton}>
-      <Text style={styles.primaryButtonText}>Book Now</Text>
+      <Text style={styles.primaryButtonText}>{buttonLabel}</Text>
     </TouchableOpacity>
   );
 }

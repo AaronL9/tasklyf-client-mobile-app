@@ -1,3 +1,4 @@
+import ChatCardList from "@/components/Chat/ChatCardList";
 import { Text, View } from "react-native";
 
 export default function Chat() {
@@ -5,11 +6,9 @@ export default function Chat() {
     <View
       style={{
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
       }}
     >
-      <Text>inbox screen</Text>
+      <ChatCardList/>
     </View>
   );
 }
