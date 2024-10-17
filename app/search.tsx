@@ -1,11 +1,14 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { StatusBar, StyleSheet, Text, View } from "react-native";
 import SearchProviderCard from "@/components/search/SearchProviderCard";
+import SearchHeader from "@/components/search/SearchHeader";
 
 export default function Search() {
   return (
-    <View>
-      <SearchProviderCard />
+    <View style={{ paddingTop: StatusBar.currentHeight ?? 0 }}>
+      <SearchHeader />
+      <View style={{ paddingHorizontal: 18 }}>
+        <SearchProviderCard />
+      </View>
     </View>
   );
 }

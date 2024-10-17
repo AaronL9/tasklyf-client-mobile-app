@@ -1,20 +1,12 @@
 import { useEffect } from "react";
-import { View, TouchableOpacity, StatusBar } from "react-native";
+import { StatusBar } from "react-native";
 
 import { Stack } from "expo-router";
 import { useFonts } from "expo-font";
 import { setStatusBarStyle } from "expo-status-bar";
 import * as SplashScreen from "expo-splash-screen";
-import Ionicons from "@expo/vector-icons/Ionicons";
-
-import SearchBar from "@/components/SearchBar";
-import { Colors } from "@/constants/Colors";
 
 export default function RootLayout() {
-  let statusBarHeight = 0;
-
-  if (StatusBar.currentHeight) statusBarHeight = StatusBar.currentHeight;
-
   const [loaded] = useFonts({
     "Archivo Black": require("../assets/fonts/archivo-black/ArchivoBlack-Regular.ttf"),
     Poppins: require("../assets/fonts/poppins/Poppins-Regular.ttf"),
@@ -46,35 +38,11 @@ export default function RootLayout() {
           name="search"
           options={{
             title: "",
-            header: ({ navigation }) => (
-              <View
-                style={{
-                  width: "100%",
-                  height: 70,
-                  marginTop: statusBarHeight,
-                  marginBottom: 20,
-                  justifyContent: "center",
-                }}
-              >
-                <View
-                  style={{
-                    paddingRight: 60,
-                    paddingLeft: 15,
-                    flexDirection: "row",
-                    gap: 18,
-                    alignItems: "center",
-                  }}
-                >
-                  <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <Ionicons name="arrow-back-outline" size={24} color="black" />
-                  </TouchableOpacity>
-                  <SearchBar onChangeText={() => {}} placeholder="Search..." />
-                </View>
-              </View>
-            ),
-            contentStyle: { backgroundColor: "white", paddingHorizontal: 18 },
+            contentStyle: { backgroundColor: "white" },
+            headerShown: false,
           }}
         />
+        <Stack.Screen name="provider" options={{}} />
       </Stack>
     </>
   );
