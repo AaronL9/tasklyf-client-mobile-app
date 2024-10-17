@@ -18,7 +18,6 @@ export default function TabLayout() {
         tabBarStyle: { height: 70 },
         tabBarItemStyle: { paddingVertical: 10 },
         tabBarLabelStyle: { fontFamily: "Poppins-Medium" },
-        headerStyle: { height: 100 },
       }}
     >
       <Tabs.Screen
@@ -34,7 +33,7 @@ export default function TabLayout() {
             </View>
           ),
           headerLeft: () => <LocationDisplay />,
-          headerStyle: { backgroundColor: "white", height: 90 },
+          headerStyle: { backgroundColor: "white", height: 100 },
         }}
       />
 
@@ -50,8 +49,11 @@ export default function TabLayout() {
       <Tabs.Screen
         name="booking"
         options={{
-          title: "Booking",
+          tabBarLabel: "Booking",
+          headerTitleStyle: { display: "none" },
+          headerStyle: { height: 40 },
           tabBarIcon: ({ color }) => <Calendar color={color} />,
+          headerShadowVisible: false,
         }}
       />
 

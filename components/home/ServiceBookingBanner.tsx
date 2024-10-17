@@ -7,15 +7,12 @@ export default function ServiceBookingBanner() {
   return (
     <View style={{ width: "100%" }}>
       <View style={styles.promoContainer}>
-        <Image
-          source={require("@/assets/images/hero-image.jpg")}
-          style={styles.promoImage}
-        />
+        <Image source={require("@/assets/images/hero-image.jpg")} style={styles.promoImage} />
         <View style={styles.promoOverlay}>
           <Text style={styles.promoHeaderText}>Book Services</Text>
           <Text style={styles.promoSubText}>in your area with ease</Text>
-          <View style={{ marginTop: 8 }}>
-            <PrimaryButton buttonLabel="Book Now"/>
+          <View style={{ marginTop: 8, width: 150 }}>
+            <PrimaryButton buttonLabel="Book Now" />
           </View>
         </View>
       </View>
@@ -30,9 +27,7 @@ export default function ServiceBookingBanner() {
         }}
       >
         <View style={styles.indicator}></View>
-        <View
-          style={[styles.indicator, { backgroundColor: Colors.blue }]}
-        ></View>
+        <View style={[styles.indicator, { backgroundColor: Colors.blue }]}></View>
         <View style={styles.indicator}></View>
       </View>
     </View>

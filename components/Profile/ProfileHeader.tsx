@@ -13,7 +13,9 @@ export default function ProfileHeader() {
       />
       <Text style={{ fontFamily: "Archivo Black" }}>Patrick Antonio</Text>
       <Text style={{ fontFamily: "Poppins-Medium" }}>patrickantonio@gmail.com</Text>
-      <PrimaryButton buttonLabel="Edit Profile" />
+      <View style={{ width: 200 }}>
+        <PrimaryButton buttonLabel="Edit Profile" />
+      </View>
     </View>
   );
 }
