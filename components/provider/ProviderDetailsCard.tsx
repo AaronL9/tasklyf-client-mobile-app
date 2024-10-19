@@ -37,8 +37,8 @@ export default function ProviderDetailsCard() {
           <Text style={styles.userDetailsValue}>+6398678356737</Text>
         </View>
         <View style={{ flexDirection: "row" }}>
-          <Text style={styles.detailsLabel}>Ratings:</Text>
-          <Text style={styles.userDetailsValue}>₱1000 - ₱2000 </Text>
+          <Text style={styles.detailsLabel}>Price:</Text>
+          <Text style={styles.userDetailsValue}>₱1000 </Text>
         </View>
         <View style={{ flexDirection: "row" }}>
           <Text style={styles.detailsLabel}>Service:</Text>

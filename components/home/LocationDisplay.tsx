@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View } from "react-native";
-import React, { useEffect, useState } from "react";
-import Mark from "../svg/Mark";
+import { useEffect, useState } from "react";
 import { Colors } from "@/constants/Colors";
 import { getLocation } from "@/utils/getLocation";
+import Mark from "../svg/Mark";
 
 export default function LocationDisplay() {
   const [locationData, setLocationData] = useState<any>(null);
@@ -13,7 +13,6 @@ export default function LocationDisplay() {
       try {
         const data = await getLocation();
         setLocationData(data);
-        console.log("data from display: ", data);
       } catch (err) {
         setError("Failed to fetch location");
         console.log(err);
@@ -30,9 +29,7 @@ export default function LocationDisplay() {
         ) : locationData ? (
           <>
             <Text style={styles.label}>{locationData.address.road}</Text>
-            <Text style={styles.locationName}>
-              {locationData.address.region}
-            </Text>
+            <Text style={styles.locationName}>{locationData.address.region}</Text>
           </>
         ) : (
           <Text>Loading location...</Text>
