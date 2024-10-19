@@ -1,52 +1,72 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import TopProviderCard from "./TopProviderCard";
+import { supabase } from "@/utils/supabase";
+import { Database } from "@/utils/database.types";
+import CardLoader from "../loader/CardLoader";
 
-const topProviders: React.ComponentProps<typeof TopProviderCard>[] = [
-  {
-    profileUrl:
-      "https://cdn.create.vista.com/api/media/small/138013506/stock-vector-user-profile-group",
-    providerName: "Juan dela Cruz",
-    profession: "Computer Technician",
-    numberOfRatings: 150,
-    avgRatings: 4.5,
-  },
-  {
-    profileUrl:
-      "https://cdn.create.vista.com/api/media/small/138013506/stock-vector-user-profile-group",
-    providerName: "Maria Santos",
-    profession: "Electrician",
-    numberOfRatings: 200,
-    avgRatings: 4.7,
-  },
-  {
-    profileUrl:
-      "https://cdn.create.vista.com/api/media/small/138013506/stock-vector-user-profile-group",
-    providerName: "Rico Garcia",
-    profession: "Mechanic",
-    numberOfRatings: 120,
-    avgRatings: 4.3,
-  },
-];
+type ProviderDataTypes = Pick<
+  Database["public"]["Tables"]["providers"]["Row"],
+  "first_name" | "last_name" | "profession" | "avg_ratings" | "profile_url" | "id"
+>;
 
 export default function TopProviderCardList() {
+  const [providers, setProviders] = useState<ProviderDataTypes[] | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  async function getTopServiceProvider() {
+    const { data: providers, error } = await supabase
+      .from("providers")
+      .select(
+        `
+      id,
+      first_name,
+      last_name,
+      profession,
+      avg_ratings,
+      profile_url
+      `
+      )
+      .order("avg_ratings", { ascending: false })
+      .limit(4)
+      .returns<ProviderDataTypes[] | null>();
+
+    setProviders(providers);
+
+    setIsLoading(false);
+  }
+
+  useEffect(() => {
+    getTopServiceProvider();
+  }, []);
+
   return (
-    <FlatList
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      data={topProviders}
-      contentContainerStyle={styles.contentContaier}
-      renderItem={({ item, index }) => (
-        <TopProviderCard
-          key={index}
-          profileUrl={item.profileUrl}
-          providerName={item.providerName}
-          profession={item.profession}
-          numberOfRatings={item.numberOfRatings}
-          avgRatings={item.avgRatings}
+    <>
+      {isLoading ? (
+        <View style={{ width: "100%", paddingLeft: 20, flexDirection: "row", gap: 25 }}>
+          <CardLoader />
+          <CardLoader />
+        </View>
+      ) : (
+        <FlatList
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          data={providers}
+          contentContainerStyle={styles.contentContaier}
+          renderItem={({ item }) => (
+            <TopProviderCard
+              key={item.id}
+              id={item.id}
+              profileUrl={item.profile_url}
+              providerName={`${item.first_name} ${item.last_name}`}
+              profession={`${item.profession}`}
+              numberOfRatings={120}
+              avgRatings={item.avg_ratings}
+            />
+          )}
         />
       )}
-    />
+    </>
   );
 }
 

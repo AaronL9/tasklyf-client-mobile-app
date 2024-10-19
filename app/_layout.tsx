@@ -5,6 +5,7 @@ import { Stack } from "expo-router";
 import { useFonts } from "expo-font";
 import { setStatusBarStyle } from "expo-status-bar";
 import * as SplashScreen from "expo-splash-screen";
+import { ServiceContextProvider } from "@/context/ServiceProviderContext";
 
 export default function RootLayout() {
   const [loaded] = useFonts({
@@ -32,18 +33,27 @@ export default function RootLayout() {
   return (
     <>
       <StatusBar backgroundColor={"white"} />
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen
-          name="search"
-          options={{
-            title: "",
-            contentStyle: { backgroundColor: "white" },
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen name="provider" options={{ headerTitle: "Provider Profile" }} />
-      </Stack>
+      <ServiceContextProvider>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="search"
+            options={{
+              title: "",
+              contentStyle: { backgroundColor: "white" },
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen name="provider" options={{ headerTitle: "Provider Profile" }} />
+          <Stack.Screen
+            name="appointment"
+            options={{
+              headerTitle: "Booking Time",
+              animation: "slide_from_right",
+            }}
+          />
+        </Stack>
+      </ServiceContextProvider>
     </>
   );
 }

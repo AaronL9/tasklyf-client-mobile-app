@@ -1,33 +1,42 @@
 import { Colors } from "@/constants/Colors";
+import { forwardRef, LegacyRef } from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
 
 type Props = {
   buttonLabel: string;
   variant?: "solid" | "outline";
   color?: string;
+  onPress?: () => void;
 };
 
-export default function PrimaryButton({
-  buttonLabel,
-  variant = "solid",
-  color = Colors.blue,
-}: Props) {
+export default forwardRef(function PrimaryButton(
+  { buttonLabel, variant = "solid", color = Colors.blue, onPress }: Props,
+  ref: LegacyRef<TouchableOpacity> | undefined
+) {
   switch (variant) {
     case "outline":
       return (
-        <TouchableOpacity style={[styles.base, styles.outline, { borderColor: color }]}>
+        <TouchableOpacity
+          ref={ref}
+          onPress={onPress}
+          style={[styles.base, styles.outline, { borderColor: color }]}
+        >
           <Text style={[styles.text, { color: color }]}>{buttonLabel}</Text>
         </TouchableOpacity>
       );
 
     default:
       return (
-        <TouchableOpacity style={[styles.base, { backgroundColor: color }]}>
+        <TouchableOpacity
+          ref={ref}
+          onPress={onPress}
+          style={[styles.base, { backgroundColor: color }]}
+        >
           <Text style={[styles.text, styles.solidText]}>{buttonLabel}</Text>
         </TouchableOpacity>
       );
   }
-}
+});
 
 const styles = StyleSheet.create({
   base: {

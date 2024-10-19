@@ -1,10 +1,11 @@
 import { ActivityIndicator, FlatList, StatusBar, StyleSheet, Text, View } from "react-native";
-import SearchProviderCard from "@/components/search/SearchProviderCard";
-import SearchHeader from "@/components/search/SearchHeader";
 import { useLocalSearchParams } from "expo-router";
-import { Provider, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { supabase } from "@/utils/supabase";
 import { Colors } from "@/constants/Colors";
+
+import SearchProviderCard from "@/components/search/SearchProviderCard";
+import SearchHeader from "@/components/search/SearchHeader";
 
 export type ProviderProp = {
   id: string;
@@ -47,7 +48,6 @@ export default function Search() {
       if (error) throw new Error(error.message);
 
       setProviders(providers);
-      console.log(providers);
     } catch (error) {
       if (error instanceof Error) console.log(error);
     } finally {
@@ -72,7 +72,7 @@ export default function Search() {
 
     // Cleanup function to clear the timeout on component unmount or when searchValue changes
     return () => {
-      setProviders([]);
+      setProviders(null);
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
@@ -90,9 +90,13 @@ export default function Search() {
         <ActivityIndicator style={{ marginBottom: 20 }} size="large" color={Colors.dark} />
       )}
 
-      {!providers ? (
-        <Text style={{ paddingHorizontal: 20 }}>No result was found</Text>
-      ) : (
+      {Array.isArray(providers) && !providers.length && (
+        <Text style={{ fontFamily: "Poppins-SemiBold", textAlign: "center" }}>
+          No result was found
+        </Text>
+      )}
+
+      {providers && (
         <FlatList
           contentContainerStyle={{ paddingHorizontal: 18, gap: 20, paddingBottom: 120 }}
           data={providers}

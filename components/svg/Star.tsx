@@ -1,4 +1,5 @@
 import Svg, { Path } from "react-native-svg";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 type Props = {
   color: string;

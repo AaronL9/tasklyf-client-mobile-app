@@ -7,7 +7,7 @@ import { ProviderProp } from "@/app/search";
 
 export default function SearchProviderCard(props: ProviderProp) {
   return (
-    <Link href="/provider" asChild>
+    <Link href={{ pathname: "/provider", params: { providerId: props.id } }} asChild>
       <TouchableOpacity style={styles.searchProviderCardContainer}>
         <Image
           style={{ width: 70, height: "100%", borderRadius: 10 }}

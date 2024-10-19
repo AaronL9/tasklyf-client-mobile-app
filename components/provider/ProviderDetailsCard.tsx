@@ -1,15 +1,7 @@
+import { ProviderDataTypes } from "@/app/provider";
 import { StyleSheet, Text, View, Image } from "react-native";
-import React, { useEffect, useState } from "react";
-import { useLocalSearchParams } from "expo-router";
 
-export default function ProviderDetailsCard() {
-  const [name, setName] = useState("John Doe");
-  const local = useLocalSearchParams<{ providerName: string }>();
-
-  useEffect(() => {
-    if (local.providerName) setName(local.providerName);
-  }, []);
-
+export default function ProviderDetailsCard({ data }: { data: ProviderDataTypes }) {
   return (
     <View style={styles.userDetailContainer}>
       <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
@@ -19,30 +11,28 @@ export default function ProviderDetailsCard() {
           width={40}
           height={40}
           source={{
-            uri: "https://cdn.vectorstock.com/i/500p/08/19/gray-photo-placeholder-icon-design-ui-vector-35850819.jpg",
+            uri: data.profile_url as string,
           }}
         />
       </View>
       <View style={{ gap: 10 }}>
         <View style={{ flexDirection: "row" }}>
           <Text style={styles.detailsLabel}>Name:</Text>
-          <Text style={styles.userDetailsValue}>{name}</Text>
+          <Text style={styles.userDetailsValue}>
+            {data.first_name} {data.last_name}
+          </Text>
         </View>
         <View style={{ flexDirection: "row" }}>
           <Text style={styles.detailsLabel}>Adress:</Text>
-          <Text style={styles.userDetailsValue}>0691 PNR Site, Dagupan City, Pangasinan</Text>
-        </View>
-        <View style={{ flexDirection: "row" }}>
-          <Text style={styles.detailsLabel}>Phone:</Text>
-          <Text style={styles.userDetailsValue}>+6398678356737</Text>
+          <Text style={styles.userDetailsValue}>{data.address}</Text>
         </View>
         <View style={{ flexDirection: "row" }}>
           <Text style={styles.detailsLabel}>Price:</Text>
-          <Text style={styles.userDetailsValue}>₱1000 </Text>
+          <Text style={styles.userDetailsValue}>{data.price}</Text>
         </View>
         <View style={{ flexDirection: "row" }}>
           <Text style={styles.detailsLabel}>Service:</Text>
-          <Text style={styles.userDetailsValue}>Plumbing </Text>
+          <Text style={styles.userDetailsValue}>{data.profession}</Text>
         </View>
       </View>
     </View>

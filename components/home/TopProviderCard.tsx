@@ -1,10 +1,10 @@
 import { Image, StyleSheet, Text, View } from "react-native";
-import React from "react";
-import Star from "../svg/Star";
 import { Colors } from "@/constants/Colors";
 import { Link } from "expo-router";
+import { Rating } from "react-native-ratings";
 
 type Props = {
+  id: string;
   profileUrl: string;
   providerName: string;
   profession: string;
@@ -14,7 +14,7 @@ type Props = {
 
 export default function TopProviderCard(props: Props) {
   return (
-    <Link href={{ pathname: "/provider", params: { providerName: props.providerName } }}>
+    <Link href={{ pathname: "/provider", params: { providerId: props.id } }}>
       <View style={styles.topProviderCardContainer}>
         <Image style={styles.topProviderCardImage} source={{ uri: props.profileUrl }} />
 
@@ -25,13 +25,13 @@ export default function TopProviderCard(props: Props) {
 
         <View style={styles.topProviderCardRatingsWrapper}>
           <Text style={{ color: Colors.ratings }}>{props.avgRatings}</Text>
-          <View style={{ flexDirection: "row" }}>
-            <Star color={Colors.ratings} />
-            <Star color={Colors.ratings} />
-            <Star color={Colors.ratings} />
-            <Star color={Colors.ratings} />
-            <Star color={Colors.ratings} />
-          </View>
+          <Rating
+            showRating={false}
+            imageSize={15}
+            startingValue={props.avgRatings}
+            readonly={true}
+            fractions={5}
+          />
           <Text>({props.numberOfRatings})</Text>
         </View>
       </View>

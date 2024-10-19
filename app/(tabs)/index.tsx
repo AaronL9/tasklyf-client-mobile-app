@@ -70,7 +70,7 @@ export default function Index() {
 
 const styles = StyleSheet.create({
   homeContainer: {
-    alignItems: "center",
+    alignItems: "stretch",
     backgroundColor: "white",
     paddingBottom: 20,
   },
@@ -81,10 +81,12 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   listContainer: { width: "100%", marginTop: 24 },
+
   headerText: {
+    width: "100%",
     fontFamily: "Archivo Black",
     fontSize: 18,
     marginBottom: 18,
-    marginHorizontal: 20,
+    marginLeft: 20,
   },
 });
