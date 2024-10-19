@@ -1,8 +1,15 @@
 import { StyleSheet, Text, View, Image } from "react-native";
-import React from "react";
-import { Colors } from "@/constants/Colors";
+import React, { useEffect, useState } from "react";
+import { useLocalSearchParams } from "expo-router";
 
 export default function ProviderDetailsCard() {
+  const [name, setName] = useState("John Doe");
+  const local = useLocalSearchParams<{ providerName: string }>();
+
+  useEffect(() => {
+    if (local.providerName) setName(local.providerName);
+  }, []);
+
   return (
     <View style={styles.userDetailContainer}>
       <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}>
@@ -19,7 +26,7 @@ export default function ProviderDetailsCard() {
       <View style={{ gap: 10 }}>
         <View style={{ flexDirection: "row" }}>
           <Text style={styles.detailsLabel}>Name:</Text>
-          <Text style={styles.userDetailsValue}>John Doe</Text>
+          <Text style={styles.userDetailsValue}>{name}</Text>
         </View>
         <View style={{ flexDirection: "row" }}>
           <Text style={styles.detailsLabel}>Adress:</Text>

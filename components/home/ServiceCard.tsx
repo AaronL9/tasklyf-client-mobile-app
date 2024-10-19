@@ -1,6 +1,7 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Pressable } from "react-native";
 import React from "react";
 import ServiceIcons from "../svg/ServiceIcons";
+import { Link } from "expo-router";
 
 // Extract AirConditioner props
 type ServiceIconsProps = React.ComponentProps<typeof ServiceIcons>;
@@ -12,14 +13,14 @@ type ServiceCardProps = ServiceIconsProps & {
 
 export default function ServiceCard({ icon, label }: ServiceCardProps) {
   return (
-    <View style={styles.ServiceCardContainer}>
-      <View style={styles.IconContainer}>
-        <ServiceIcons icon={icon} />
-      </View>
-      <Text style={{ fontFamily: "Poppins-Medium", marginTop: 20 }}>
-        {label}
-      </Text>
-    </View>
+    <Link href={{ pathname: "/search", params: { searchQuery: label } }} asChild>
+      <Pressable style={styles.ServiceCardContainer}>
+        <View style={styles.IconContainer}>
+          <ServiceIcons icon={icon} />
+        </View>
+        <Text style={{ fontFamily: "Poppins-Medium", marginTop: 20 }}>{label}</Text>
+      </Pressable>
+    </Link>
   );
 }
 

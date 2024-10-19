@@ -29,6 +29,7 @@ export default function Provider() {
               </Text>
             </TouchableOpacity>
           </View>
+
           <UserRatingsCard />
           <UserRatingsCard />
         </View>
@@ -36,25 +37,7 @@ export default function Provider() {
         <View style={{ paddingVertical: 50 }}></View>
       </ScrollView>
 
-      <View
-        style={{
-          position: "absolute",
-          bottom: 0,
-          width: "100%",
-          backgroundColor: "white",
-          padding: 20,
-          borderTopLeftRadius: 20,
-          borderTopRightRadius: 20,
-          shadowColor: "#000000",
-          shadowOffset: {
-            width: 0,
-            height: 18,
-          },
-          shadowOpacity: 0.25,
-          shadowRadius: 20.0,
-          elevation: 24,
-        }}
-      >
+      <View style={styles.bookButtonWrapper}>
         <PrimaryButton buttonLabel="Book Now" />
       </View>
     </View>
@@ -77,5 +60,23 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins",
     color: Colors["primary-grey"],
     alignSelf: "flex-end",
+  },
+
+  bookButtonWrapper: {
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
+    backgroundColor: "white",
+    padding: 20,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    shadowColor: "#000000",
+    shadowOffset: {
+      width: 0,
+      height: 18,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 20.0,
+    elevation: 24,
   },
 });

@@ -42,7 +42,7 @@ export default function RootLayout() {
             headerShown: false,
           }}
         />
-        <Stack.Screen name="provider" options={{}} />
+        <Stack.Screen name="provider" options={{ headerTitle: "Provider Profile" }} />
       </Stack>
     </>
   );

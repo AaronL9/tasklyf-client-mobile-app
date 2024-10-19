@@ -8,12 +8,13 @@ type Props = {
   onChangeText: ((text: string) => void) | undefined;
   placeholder: string;
   disabled?: boolean;
+  value?: string;
 };
 
 export default function SearchBar(props: Props) {
   if (props.disabled) {
     return (
-      <Link href="/search" asChild>
+      <Link href={{ pathname: "/search", params: { searchQuery: "" } }} asChild>
         <Pressable style={styles.searchBarContainer}>
           <MagnifyingGlass color={Colors["primary-grey"]} />
           <View style={[styles.searchBar, { justifyContent: "center" }]}>
@@ -28,6 +29,7 @@ export default function SearchBar(props: Props) {
     <View style={styles.searchBarContainer}>
       <MagnifyingGlass color={Colors["primary-grey"]} />
       <TextInput
+        value={props.value}
         style={styles.searchBar}
         placeholder={props.placeholder}
         onChangeText={props.onChangeText}

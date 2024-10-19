@@ -3,7 +3,12 @@ import { Ionicons } from "@expo/vector-icons";
 import SearchBar from "../SearchBar";
 import { useNavigation } from "expo-router";
 
-export default function SearchHeader() {
+type Props = {
+  searchValue: string | undefined;
+  setSearchValue: React.Dispatch<React.SetStateAction<string | undefined>>;
+};
+
+export default function SearchHeader(props: Props) {
   const navigation = useNavigation();
   return (
     <View style={styles.searchHeaderContainer}>
@@ -11,7 +16,11 @@ export default function SearchHeader() {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Ionicons name="arrow-back-outline" size={24} color="black" />
         </TouchableOpacity>
-        <SearchBar onChangeText={() => {}} placeholder="Search..." />
+        <SearchBar
+          value={props.searchValue}
+          onChangeText={props.setSearchValue}
+          placeholder="Search..."
+        />
       </View>
     </View>
   );
