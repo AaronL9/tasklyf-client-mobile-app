@@ -49,7 +49,16 @@ export default function RootLayout() {
             name="appointment"
             options={{
               headerTitle: "Booking Time",
-              animation: "slide_from_right",
+              animation: "fade_from_bottom",
+            }}
+          />
+          <Stack.Screen
+            name="payment"
+            options={{
+              headerTitle: "Payment Method",
+              animation: "fade_from_bottom",
+              contentStyle: { backgroundColor: "white", padding: 20, gap: 20 },
+              headerShadowVisible: false,
             }}
           />
         </Stack>

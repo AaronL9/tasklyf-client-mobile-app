@@ -3,38 +3,83 @@ export type Json = string | number | boolean | null | { [key: string]: Json | un
 export type Database = {
   public: {
     Tables: {
-      bookings: {
+      availability: {
         Row: {
-          client_id: string | null;
-          created_at: string;
-          description: string | null;
-          id: string;
+          day: string;
+          end_time: string;
+          id: number;
           provider_id: string | null;
-          scheduled_date: string | null;
-          service_type: string | null;
-          status: string | null;
+          start_time: string;
+          status: string;
+          time_of_day: string;
         };
         Insert: {
-          client_id?: string | null;
-          created_at?: string;
-          description?: string | null;
-          id: string;
+          day?: string;
+          end_time?: string;
+          id?: number;
           provider_id?: string | null;
-          scheduled_date?: string | null;
-          service_type?: string | null;
-          status?: string | null;
+          start_time?: string;
+          status: string;
+          time_of_day?: string;
         };
         Update: {
-          client_id?: string | null;
-          created_at?: string;
-          description?: string | null;
-          id?: string;
+          day?: string;
+          end_time?: string;
+          id?: number;
           provider_id?: string | null;
-          scheduled_date?: string | null;
-          service_type?: string | null;
-          status?: string | null;
+          start_time?: string;
+          status?: string;
+          time_of_day?: string;
         };
         Relationships: [
+          {
+            foreignKeyName: "availability_provider_id_fkey";
+            columns: ["provider_id"];
+            isOneToOne: false;
+            referencedRelation: "providers";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
+      bookings: {
+        Row: {
+          appointment_date: string;
+          availability_id: number;
+          client_id: string;
+          created_at: string;
+          id: string;
+          price: number;
+          provider_id: string;
+          status: string;
+        };
+        Insert: {
+          appointment_date: string;
+          availability_id: number;
+          client_id?: string;
+          created_at?: string;
+          id?: string;
+          price: number;
+          provider_id?: string;
+          status?: string;
+        };
+        Update: {
+          appointment_date?: string;
+          availability_id?: number;
+          client_id?: string;
+          created_at?: string;
+          id?: string;
+          price?: number;
+          provider_id?: string;
+          status?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "bookings_availability_id_fkey";
+            columns: ["availability_id"];
+            isOneToOne: false;
+            referencedRelation: "availability";
+            referencedColumns: ["id"];
+          },
           {
             foreignKeyName: "bookings_client_id_fkey";
             columns: ["client_id"];

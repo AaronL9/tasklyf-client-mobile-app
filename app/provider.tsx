@@ -64,71 +64,66 @@ export default function Provider() {
 
   return (
     <View>
-      <ScrollView style={{ backgroundColor: "transparent" }}>
-        <View style={{ backgroundColor: "white", marginBottom: 15, paddingBottom: 10 }}>
-          {isLoading ? (
-            <Instagram height={420} rtl />
-          ) : providerData ? (
-            <ProviderDetailsCard data={providerData} />
-          ) : (
-            <Text>Page Not found</Text>
-          )}
+      {isLoading ? (
+        <View style={{ alignItems: "center" }}>
+          <Instagram backgroundColor="white" width={350} />
         </View>
-
-        <View
-          style={{
-            backgroundColor: "white",
-            marginBottom: 15,
-            paddingVertical: 20,
-            paddingHorizontal: 20,
-          }}
-        >
-          <Text style={{ fontFamily: "Archivo Black", fontSize: 16, lineHeight: 28 }}>
-            Description
-          </Text>
-          <Text style={{ fontFamily: "Poppins" }}>{providerData?.service_details}</Text>
-        </View>
-
-        <View style={styles.featuredWorkSectionWrapper}>
-          <Text style={[styles.providerTitle, { paddingHorizontal: 20 }]}>Featured Work</Text>
-          <FeaturedWorkList />
-        </View>
-
-        <View style={styles.reviewSectionWrapper}>
-          <View style={styles.reviewSectionTitleWrapper}>
-            <View>
-              <Text style={styles.providerTitle}>Customer Ratings</Text>
-              <View style={{ flexDirection: "row", gap: 8, alignItems: "center" }}>
-                <Text style={{ color: Colors.ratings }}>{providerData?.avg_ratings}</Text>
-                <Star color={Colors.ratings} />
-                <Text>{`(120)`}</Text>
-              </View>
+      ) : providerData ? (
+        <>
+          <ScrollView style={{ backgroundColor: "transparent" }}>
+            <View style={{ backgroundColor: "white", marginBottom: 15, paddingBottom: 10 }}>
+              <ProviderDetailsCard data={providerData} />
             </View>
-            <TouchableOpacity>
-              <Text style={styles.reviewSectionButton}>
-                View All <Ionicons name="chevron-forward" color={Colors["primary-grey"]} />
+
+            <View style={styles.providerDescriptionWrapper}>
+              <Text style={{ fontFamily: "Archivo Black", fontSize: 16, lineHeight: 28 }}>
+                Description
               </Text>
-            </TouchableOpacity>
+              <Text style={{ fontFamily: "Poppins" }}>{providerData?.service_details}</Text>
+            </View>
+
+            <View style={styles.featuredWorkSectionWrapper}>
+              <Text style={[styles.providerTitle, { paddingHorizontal: 20 }]}>Featured Work</Text>
+              <FeaturedWorkList />
+            </View>
+
+            <View style={styles.reviewSectionWrapper}>
+              <View style={styles.reviewSectionTitleWrapper}>
+                <View>
+                  <Text style={styles.providerTitle}>Customer Ratings</Text>
+                  <View style={{ flexDirection: "row", gap: 8, alignItems: "center" }}>
+                    <Text style={{ color: Colors.ratings }}>{providerData?.avg_ratings}</Text>
+                    <Star color={Colors.ratings} />
+                    <Text>{`(120)`}</Text>
+                  </View>
+                </View>
+                <TouchableOpacity>
+                  <Text style={styles.reviewSectionButton}>
+                    View All <Ionicons name="chevron-forward" color={Colors["primary-grey"]} />
+                  </Text>
+                </TouchableOpacity>
+              </View>
+
+              <UserRatingsCard />
+              <UserRatingsCard />
+            </View>
+
+            <View style={{ paddingVertical: 50 }}></View>
+          </ScrollView>
+
+          <View style={styles.bookButtonWrapper}>
+            <Link
+              href={{
+                pathname: "/appointment",
+              }}
+              asChild
+            >
+              <PrimaryButton buttonLabel="Book Now" />
+            </Link>
           </View>
-
-          <UserRatingsCard />
-          <UserRatingsCard />
-        </View>
-
-        <View style={{ paddingVertical: 50 }}></View>
-      </ScrollView>
-
-      {!isLoading && (
-        <View style={styles.bookButtonWrapper}>
-          <Link
-            href={{
-              pathname: "/appointment",
-            }}
-            asChild
-          >
-            <PrimaryButton buttonLabel="Book Now" />
-          </Link>
-        </View>
+        </>
+      ) : (
+        <Text>Page Not Found</Text>
       )}
     </View>
   );
@@ -150,6 +145,13 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins",
     color: Colors["primary-grey"],
     alignSelf: "flex-end",
+  },
+
+  providerDescriptionWrapper: {
+    backgroundColor: "white",
+    marginBottom: 15,
+    paddingVertical: 20,
+    paddingHorizontal: 20,
   },
 
   bookButtonWrapper: {

@@ -51,7 +51,7 @@ export default function TabLayout() {
         options={{
           tabBarLabel: "Booking",
           headerTitleStyle: { display: "none" },
-          headerStyle: { height: 40 },
+          headerStyle: { height: 30 },
           tabBarIcon: ({ color }) => <Calendar color={color} />,
           headerShadowVisible: false,
         }}

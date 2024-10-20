@@ -7,10 +7,11 @@ type Props = {
   variant?: "solid" | "outline";
   color?: string;
   onPress?: () => void;
+  disable?: boolean;
 };
 
 export default forwardRef(function PrimaryButton(
-  { buttonLabel, variant = "solid", color = Colors.blue, onPress }: Props,
+  { buttonLabel, variant = "solid", color = Colors.blue, onPress, disable }: Props,
   ref: LegacyRef<TouchableOpacity> | undefined
 ) {
   switch (variant) {
@@ -31,6 +32,7 @@ export default forwardRef(function PrimaryButton(
           ref={ref}
           onPress={onPress}
           style={[styles.base, { backgroundColor: color }]}
+          disabled={disable}
         >
           <Text style={[styles.text, styles.solidText]}>{buttonLabel}</Text>
         </TouchableOpacity>
