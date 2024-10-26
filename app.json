@@ -33,6 +33,14 @@
         {
           "locationAlwaysAndWhenInUsePermission": "Allow Tasklyf to use your location."
         }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/images/adaptive-icon.png",
+          "color": "#ffffff",
+          "defaultChannel": "default"
+        }
       ]
     ],
     "experiments": {

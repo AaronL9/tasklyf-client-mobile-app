@@ -30,7 +30,7 @@ export default function SearchProviderCard(props: ProviderProp) {
         </View>
 
         <View style={{ marginLeft: "auto", alignSelf: "center" }}>
-          <Text style={{ fontFamily: "Poppins-SemiBold" }}>{props.price}</Text>
+          <Text style={{ fontFamily: "Poppins-SemiBold" }}>₱{props.price}</Text>
         </View>
       </TouchableOpacity>
     </Link>

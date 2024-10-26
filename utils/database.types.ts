@@ -51,6 +51,7 @@ export type Database = {
           price: number;
           provider_id: string;
           status: string;
+          service: string;
         };
         Insert: {
           appointment_date: string;
@@ -61,6 +62,7 @@ export type Database = {
           price: number;
           provider_id?: string;
           status?: string;
+          service: string;
         };
         Update: {
           appointment_date?: string;
@@ -71,6 +73,7 @@ export type Database = {
           price?: number;
           provider_id?: string;
           status?: string;
+          service: string;
         };
         Relationships: [
           {

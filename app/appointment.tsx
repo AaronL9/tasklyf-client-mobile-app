@@ -72,7 +72,7 @@ export default function Appointment() {
             {providerInfo?.service_details}
           </Text>
         </View>
-        <Text style={{ fontFamily: "Poppins-SemiBold", fontSize: 18 }}>{providerInfo?.price}</Text>
+        <Text style={{ fontFamily: "Poppins-SemiBold", fontSize: 18 }}>₱{providerInfo?.price}</Text>
       </View>
 
       <View
@@ -114,6 +114,7 @@ export default function Appointment() {
         <Link
           href={{
             pathname: "/payment",
+            params: { date: isoDate, timeSlot: selectedTimeSlot },
           }}
           asChild
         >

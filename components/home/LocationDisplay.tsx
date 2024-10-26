@@ -12,6 +12,8 @@ export default function LocationDisplay() {
     (async () => {
       try {
         const data = await getLocation();
+        console.log(JSON.stringify(data, undefined, 2));
+        console.log(data.place_id === "217186812");
         setLocationData(data);
       } catch (err) {
         setError("Failed to fetch location");

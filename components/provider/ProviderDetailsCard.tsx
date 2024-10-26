@@ -28,7 +28,7 @@ export default function ProviderDetailsCard({ data }: { data: ProviderDataTypes 
         </View>
         <View style={{ flexDirection: "row" }}>
           <Text style={styles.detailsLabel}>Price:</Text>
-          <Text style={styles.userDetailsValue}>{data.price}</Text>
+          <Text style={styles.userDetailsValue}>₱{data.price}</Text>
         </View>
         <View style={{ flexDirection: "row" }}>
           <Text style={styles.detailsLabel}>Service:</Text>
