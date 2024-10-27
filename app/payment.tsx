@@ -1,6 +1,8 @@
-import { StyleSheet, Text, View, Pressable } from "react-native";
-import { Link, useLocalSearchParams } from "expo-router";
+import { StyleSheet, Text, View, Pressable, Alert, AppStateStatus, AppState } from "react-native";
+import { Link, router, useLocalSearchParams } from "expo-router";
 import { useContext, useEffect, useState } from "react";
+import { ServiceProviderContext } from "@/context/ServiceProviderContext";
+import { AuthContext } from "@/context/AuthContext";
 
 import { Colors } from "@/constants/Colors";
 import Bitcoin from "@/components/svg/Bitcoin";
@@ -8,34 +10,178 @@ import RadioButton from "@/components/payments/RadioButton";
 import MasterCard from "@/components/svg/MasterCard";
 import PrimaryButton from "@/components/PrimaryButton";
 import Gcash from "@/components/svg/Gcash";
-import { ServiceProviderContext } from "@/context/ServiceProviderContext";
 import SuccessMessage from "@/components/payments/SuccessMessage";
-import { AuthContext } from "@/context/AuthContext";
 import { generateRandomString } from "@/utils/stringGenerator";
 import { supabase } from "@/utils/supabase";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as WebBrowser from "expo-web-browser";
+
+type BookingDataType = {
+  id: string;
+  provider_id: string | undefined;
+  client_id: string | undefined;
+  availability_id: string | string[];
+  appointment_date: string | string[];
+  status: string;
+  service: string | undefined;
+  price: number;
+};
 
 const serviceFee = 50;
 
 export default function Payment() {
   const local = useLocalSearchParams();
   const { user } = useContext(AuthContext);
+  const { providerInfo } = useContext(ServiceProviderContext);
 
-  const [bookingData, setBookingData] = useState<Object | null>(null);
+  const [bookingData, setBookingData] = useState<BookingDataType | null>(null);
 
   const [selectedPayment, setSelectedPayment] = useState("gcash");
   const [showSuccess, setShowSuccess] = useState(false);
-  const { providerInfo } = useContext(ServiceProviderContext);
+  const [isLoading, setIsLoading] = useState(false);
+
+  async function onPlaceOrderHandler() {
+    setIsLoading(true);
+
+    if (!bookingData) return;
+    const options = {
+      method: "POST",
+      headers: {
+        accept: "application/json",
+        "Content-Type": "application/json",
+        authorization: "Basic c2tfdGVzdF82N3ZoRzRvcXdKdzc1Zzg4WUNwSEVoRk46",
+      },
+      body: JSON.stringify({
+        data: {
+          attributes: {
+            billing: {
+              address: {
+                city: "Dagupan City",
+                postal_code: "2400",
+                country: "PH",
+                line1: "Arellano Street",
+              },
+              name: "Aaron",
+              email: "aaron.lomibao09@gmail.com",
+              phone: "09297867879",
+            },
+            send_email_receipt: true,
+            show_description: true,
+            show_line_items: true,
+            description: `Booking # ${bookingData.id}`,
+            line_items: [
+              {
+                name: providerInfo?.profession,
+                currency: "PHP",
+                amount: (Number(providerInfo?.price) + serviceFee) * 100,
+                description: `You book a service: ${providerInfo?.profession}`,
+                quantity: 1,
+              },
+            ],
+            payment_method_types: ["gcash"],
+          },
+        },
+      }),
+    };
+
+    try {
+      const res = await fetch("https://api.paymongo.com/v1/checkout_sessions", options);
+      const json = await res.json();
+
+      const checkoutUrl = json?.data?.attributes?.checkout_url;
+      const paymentIntentId = json?.data?.attributes?.payment_intent?.id;
+      const clientKey = json?.data?.attributes?.payment_intent?.attributes?.client_key;
+
+      console.log(JSON.stringify(json, undefined, 2));
+
+      if (!checkoutUrl) throw new Error("We can't process the payment at the moment");
+
+      await AsyncStorage.setItem("client_key", clientKey);
+      await AsyncStorage.setItem("payment_intent_id", paymentIntentId);
+      await AsyncStorage.setItem("booking", JSON.stringify(bookingData));
+
+      WebBrowser.openBrowserAsync(checkoutUrl);
+
+      // console.log(JSON.stringify(json, undefined, 2));
+    } catch (error) {
+      if (error instanceof Error) Alert.alert("Payment Error", error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  async function oncheckPaymentStatus() {
+    try {
+      setIsLoading(true);
+      const client_key = await AsyncStorage.getItem("client_key");
+      const payment_intent_id = await AsyncStorage.getItem("payment_intent_id");
+
+      const options = {
+        method: "GET",
+        headers: {
+          accept: "application/json",
+          authorization: "Basic c2tfdGVzdF82N3ZoRzRvcXdKdzc1Zzg4WUNwSEVoRk46",
+        },
+      };
+
+      const res = await fetch(
+        `https://api.paymongo.com/v1/payment_intents/${payment_intent_id}?client_key=${client_key}`,
+        options
+      );
+      const json = await res.json();
+
+      console.log(JSON.stringify(json, undefined, 2));
+
+      if (!res.ok) throw new Error("We can't add your orders. Please wait for the refund");
+
+      const status = json?.data?.attributes?.status;
+      const paidAt = json?.data.attributes?.payments[0]?.attributes?.paid_at;
+
+      if (status === "succeeded") {
+        Alert.alert("Payment Successful", "Your payment was processed successfully.");
+        await insertBookingData();
+        router.navigate("/booking");
+      }
+
+      console.log(status);
+      console.log(JSON.stringify(json, undefined, 2));
+    } catch (error) {
+      if (error instanceof Error) Alert.alert("Payment Failed", error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   async function insertBookingData() {
-    if (!bookingData) return alert("Booking Failed");
+    const bookingData = await AsyncStorage.getItem("booking");
 
-    const { data, error } = await supabase.from("bookings").insert(bookingData).select();
+    try {
+      if (!bookingData) throw new Error("No booking found");
+      const { error } = await supabase.from("bookings").insert(JSON.parse(bookingData));
 
-    if (error) console.log(error.message);
+      if (error) throw new Error(error.message);
 
-    console.log(data);
-    setShowSuccess(true);
+      setShowSuccess(true);
+    } catch (error) {
+      if (error instanceof Error) console.log(error.message);
+    }
   }
+
+  useEffect(() => {
+    const handleAppStateChange = (nextAppState: AppStateStatus) => {
+      if (nextAppState === "active") {
+        oncheckPaymentStatus();
+      }
+    };
+
+    // Add AppState event listener
+    const subscription = AppState.addEventListener("change", handleAppStateChange);
+
+    return () => {
+      // Clean up the event listener
+      subscription.remove();
+    };
+  }, []);
 
   useEffect(() => {
     setBookingData({
@@ -88,7 +234,7 @@ export default function Payment() {
             </Text>
           </View>
         </View>
-        <PrimaryButton onPress={insertBookingData} buttonLabel="Pay now" />
+        <PrimaryButton loading={isLoading} onPress={onPlaceOrderHandler} buttonLabel="Pay now" />
       </View>
       <SuccessMessage showSuccess={showSuccess} setShowSuccess={setShowSuccess} />
     </>

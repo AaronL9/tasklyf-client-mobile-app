@@ -45,7 +45,7 @@ export default function ActiveScreen() {
         data={bookingData}
         contentContainerStyle={{
           backgroundColor: "white",
-          paddingTop: 20,
+          paddingVertical: 20,
           paddingHorizontal: 16,
           gap: 20,
         }}

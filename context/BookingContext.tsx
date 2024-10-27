@@ -49,6 +49,7 @@ export function BookingContextProvider({ children }: { children: React.ReactNode
       )
       .eq("client_id", user?.id)
       .in("status", status)
+      .order("created_at", { ascending: false })
       .returns<BookingType[] | null>();
 
     if (error) {

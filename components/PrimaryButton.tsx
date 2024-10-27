@@ -1,6 +1,6 @@
 import { Colors } from "@/constants/Colors";
 import { forwardRef, LegacyRef } from "react";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, TouchableOpacity } from "react-native";
 
 type Props = {
   buttonLabel: string;
@@ -8,10 +8,11 @@ type Props = {
   color?: string;
   onPress?: () => void;
   disable?: boolean;
+  loading?: boolean;
 };
 
 export default forwardRef(function PrimaryButton(
-  { buttonLabel, variant = "solid", color = Colors.blue, onPress, disable }: Props,
+  { buttonLabel, variant = "solid", color = Colors.blue, onPress, disable, loading }: Props,
   ref: LegacyRef<TouchableOpacity> | undefined
 ) {
   switch (variant) {
@@ -22,7 +23,11 @@ export default forwardRef(function PrimaryButton(
           onPress={onPress}
           style={[styles.base, styles.outline, { borderColor: color }]}
         >
-          <Text style={[styles.text, { color: color }]}>{buttonLabel}</Text>
+          {loading ? (
+            <ActivityIndicator color="white" size="small" />
+          ) : (
+            <Text style={[styles.text, { color: color }]}>{buttonLabel}</Text>
+          )}
         </TouchableOpacity>
       );
 
@@ -34,7 +39,11 @@ export default forwardRef(function PrimaryButton(
           style={[styles.base, { backgroundColor: color }]}
           disabled={disable}
         >
-          <Text style={[styles.text, styles.solidText]}>{buttonLabel}</Text>
+          {loading ? (
+            <ActivityIndicator color="white" size="small" />
+          ) : (
+            <Text style={[styles.text, styles.solidText]}>{buttonLabel}</Text>
+          )}
         </TouchableOpacity>
       );
   }

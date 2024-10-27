@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import ProfileHeader from "@/components/Profile/ProfileHeader";
 import ProfileButton from "@/components/Profile/ProfileButton";
